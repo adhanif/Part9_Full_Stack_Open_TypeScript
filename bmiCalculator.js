@@ -1,3 +1,4 @@
+"use strict";
 var calculateBmi = function (height, weight) {
     var bmi = parseFloat((weight / Math.pow(height / 100, 2)).toFixed(2));
     if (bmi < 18.5) {
