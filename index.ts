@@ -34,8 +34,12 @@ app.get(`/bmi`, (_req, res) => {
       bmi: bmi,
     };
     res.json(response);
-  } catch (error) {
-    res.status(400).send({ error: error.message });
+  } catch (error: unknown) {
+    let errorMessage = "Something went wrong: ";
+    if (error instanceof Error) {
+      errorMessage += error.message;
+    }
+    res.status(400).send({ error: errorMessage });
   }
 });
 
