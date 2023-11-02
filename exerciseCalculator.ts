@@ -8,7 +8,8 @@ interface Result1 {
   ratingDescription: string;
 }
 
-export const isNotNumber = (argument: any): boolean => isNaN(Number(argument));
+export const isNotNumber = (argument: string): boolean =>
+  isNaN(Number(argument));
 
 export const calculateExercises = (args: number[], target: number): Result1 => {
   // if (args.length < 7) throw new Error("Not enough arguments");
@@ -75,6 +76,10 @@ try {
   const { target, exerciseArgs } = parseArguments(process.argv);
   const ans = calculateExercises(exerciseArgs, target);
   console.log(ans);
-} catch (e) {
-  console.error(e.message);
+} catch (error: unknown) {
+  let errorMessage = "Something went wrong: ";
+  if (error instanceof Error) {
+    errorMessage += error.message;
+  }
+  console.error(errorMessage);
 }

@@ -15,7 +15,9 @@ export const parsedBmiValues = (height: number, weight: number): values => {
 };
 
 export const bmiCalculate = (height: number, weight: number): string => {
-  let bmi: number = parseFloat((weight / Math.pow(height / 100, 2)).toFixed(2));
+  const bmi: number = parseFloat(
+    (weight / Math.pow(height / 100, 2)).toFixed(2)
+  );
 
   if (bmi < 18.5) {
     return "Not Normal (Underweight)";
