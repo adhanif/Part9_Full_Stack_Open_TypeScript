@@ -8,10 +8,23 @@ interface Result1 {
   ratingDescription: string;
 }
 
-export const isNotNumber = (argument: string): boolean =>
-  isNaN(Number(argument));
+interface InputValues {
+  targetDay: number;
+  exerciseArgs: Array<number>;
+}
 
-export const calculateExercises = (args: number[], target: number): Result1 => {
+export const parseArguments = (
+  target: number,
+  dailyExercisaDays: Array<number>
+): InputValues => {
+  if (!isNaN(target) && dailyExercisaDays.some(isNaN)) {
+    return { targetDay: target, exerciseArgs: dailyExercisaDays };
+  } else {
+    throw new Error(`Invalid argument: not all values are numbers`);
+  }
+};
+
+export const calculateExercises = (target: number, args: number[]): Result1 => {
   // if (args.length < 7) throw new Error("Not enough arguments");
   // if (args.length > 7) throw new Error("Too many arguments");
 
@@ -51,35 +64,14 @@ export const calculateExercises = (args: number[], target: number): Result1 => {
   };
 };
 
-export const parseArguments = (
-  args: string[]
-): { target: number; exerciseArgs: number[] } => {
-  if (args.length < 8)
-    throw new Error("Not enough arguments for exercise calculation");
-
-  const target = parseFloat(args[2]);
-  if (isNotNumber(target)) {
-    throw new Error(`Invalid argument: ${args[2]} is not a number`);
-  }
-
-  const exerciseArgs = args.slice(3).map((arg) => {
-    if (isNotNumber(arg)) {
-      throw new Error(`Invalid argument: ${arg} is not a number`);
-    }
-    return parseFloat(arg);
-  });
-
-  return { target, exerciseArgs };
-};
-
-try {
-  const { target, exerciseArgs } = parseArguments(process.argv);
-  const ans = calculateExercises(exerciseArgs, target);
-  console.log(ans);
-} catch (error: unknown) {
-  let errorMessage = "Something went wrong: ";
-  if (error instanceof Error) {
-    errorMessage += error.message;
-  }
-  console.error(errorMessage);
-}
+// try {
+//   const { target, exerciseArgs } = parseArguments(process.argv);
+//   const ans = calculateExercises(exerciseArgs, target);
+//   console.log(ans);
+// } catch (error: unknown) {
+//   let errorMessage = "Something went wrong: ";
+//   if (error instanceof Error) {
+//     errorMessage += error.message;
+//   }
+//   throw new Error(errorMessage);
+// }

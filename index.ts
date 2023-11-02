@@ -2,6 +2,8 @@
 import express from "express";
 import { bmiCalculate, parsedBmiValues } from "./bmiCalculator";
 
+import { calculateExercises, parseArguments } from "./exerciseCalculator";
+
 const app = express();
 app.use(express.json());
 
@@ -40,6 +42,29 @@ app.get(`/bmi`, (_req, res) => {
       errorMessage += error.message;
     }
     res.status(400).send({ error: errorMessage });
+  }
+});
+
+app.post("/exercises", (_req, res) => {
+  const { daily_exercises, target } = _req.body;
+  if (!daily_exercises || !target) {
+    res.status(400).json({ error: "parameters missing" });
+  } else {
+    try {
+      const { targetDay, exerciseArgs } = parseArguments(
+        target,
+        daily_exercises
+      );
+      console.log(targetDay, exerciseArgs);
+      const response = calculateExercises(targetDay, exerciseArgs);
+      res.status(200).json(response);
+    } catch (error: unknown) {
+      let errorMessage = "Something went wrong: ";
+      if (error instanceof Error) {
+        errorMessage += error.message;
+      }
+      res.status(400).send({ error: errorMessage });
+    }
   }
 });
 
