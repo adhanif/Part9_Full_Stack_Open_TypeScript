@@ -1,0 +1,4 @@
+[
+  { "code": "ABC123", "name": "Diagnosis1", "latin": "Lorem Ipsum" },
+  { "code": "DEF456", "name": "Diagnosis2" }
+]
