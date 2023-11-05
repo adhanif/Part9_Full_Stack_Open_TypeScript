@@ -4,7 +4,7 @@ import patientsServices from "../services/patientsServices";
 
 patientsRouter.get("/", (_req, res) => {
   try {
-    res.json(patientsServices.getPatients());
+    res.json(patientsServices.getNonSensitivePatientEntries());
   } catch (error: unknown) {
     console.error(error);
     let errorMessage = "Something went wrong";
