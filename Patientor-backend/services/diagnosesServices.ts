@@ -1,9 +1,9 @@
 import diagnoseData from "../data/diagnoses.json";
-import { DiagnosisEntry } from "../types";
+import { DiagnosesEntry } from "../types";
 
-const diagnoses: DiagnosisEntry[] = diagnoseData;
+const diagnoses: DiagnosesEntry[] = diagnoseData;
 
-const getEntries = (): DiagnosisEntry[] => {
+const getEntries = (): DiagnosesEntry[] => {
   return diagnoses;
 };
 
