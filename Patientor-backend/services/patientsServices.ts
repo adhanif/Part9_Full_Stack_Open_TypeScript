@@ -1,18 +1,15 @@
-import patientsData from "../data/patients.json";
-import { PatientEntry } from "../types";
+import patientEntries from "../data/patients";
+import { PatientEntry, NonSensitivePatientEntry } from "../types";
 
-type patientWithoutSSN = Omit<PatientEntry, "ssn">;
+const getPatients = (): PatientEntry[] => {
+  return patientEntries;
+};
 
-const patients: PatientEntry[] = patientsData;
-
-const patientsWithoutSSN: patientWithoutSSN[] = patients.map(
-  ({ ssn, ...rest }) => rest
-);
-
-const getPatients = (): patientWithoutSSN[] => {
-  return patientsWithoutSSN;
+const getNonSensitivePatientEntries = (): NonSensitivePatientEntry[] => {
+  return patientEntries.map(({ ssn, ...rest }) => rest);
 };
 
 export default {
   getPatients,
+  getNonSensitivePatientEntries,
 };
