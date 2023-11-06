@@ -11,24 +11,14 @@ patientsRouter.get("/", (_req, res) => {
     if (error instanceof Error) {
       errorMessage += error.message;
     }
-    res.send(400).send({ error: errorMessage });
+    res.status(400).send({ error: errorMessage });
   }
 });
 
 patientsRouter.post("/", (_req, res) => {
-  // const { name, occupation, gender, dateOfBirth, ssn } = _req.body;
-  const newPatientEntryCheck = toNewDiaryEntry(_req.body);
-  console.log(newPatientEntryCheck);
-
-  const addedPatient = patientsServices.addPatient(newPatientEntryCheck);
   try {
-    // const newPatient = patientsServices.addPatient({
-    //   name,
-    //   occupation,
-    //   gender,
-    //   dateOfBirth,
-    //   ssn,
-    // });
+    const newPatientEntryCheck = toNewDiaryEntry(_req.body);
+    const addedPatient = patientsServices.addPatient(newPatientEntryCheck);
     res.status(200).json(addedPatient);
   } catch (error: unknown) {
     console.error(error);
@@ -36,7 +26,7 @@ patientsRouter.post("/", (_req, res) => {
     if (error instanceof Error) {
       errorMessage += error.message;
     }
-    res.send(400).send({ error: errorMessage });
+    res.status(400).send({ error: errorMessage });
   }
 });
 
