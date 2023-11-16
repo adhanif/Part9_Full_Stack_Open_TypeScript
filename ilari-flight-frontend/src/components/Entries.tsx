@@ -1,4 +1,5 @@
 import { DiaryEntry } from "../types";
+import React from "react";
 
 const Entries = ({ entries }: { entries: DiaryEntry[] }) => {
   return (
