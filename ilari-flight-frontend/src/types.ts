@@ -18,5 +18,10 @@ export interface DiaryEntry {
   date: string;
   weather: Weather;
   visibility: Visibility;
-  comment: string;
+  comment?: string;
+}
+
+export interface ValidationError {
+  message: string;
+  errors: Record<string, string[]>;
 }
