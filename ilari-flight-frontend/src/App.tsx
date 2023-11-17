@@ -83,7 +83,7 @@ function App() {
               <input
                 type="radio"
                 name="filter"
-                onChange={() => setVisibility(`${opt}`)}
+                onChange={() => setVisibility(opt as Visibility)}
               />
             </React.Fragment>
           ))}
@@ -97,7 +97,7 @@ function App() {
               <input
                 type="radio"
                 name="filter2"
-                onChange={() => setWeather(`${opt}`)}
+                onChange={() => setWeather(opt as Weather)}
               />
             </React.Fragment>
           ))}
