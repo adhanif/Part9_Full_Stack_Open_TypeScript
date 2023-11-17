@@ -1,7 +1,7 @@
 import "./App.css";
 import React from "react";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { DiaryEntry, ValidationError } from "./types";
 import { getAllDiaryEntries, createDiaryEntry } from "./DiaryEntryServices";
 import Entries from "../src/components/Entries";
@@ -20,20 +20,6 @@ function App() {
     });
   }, []);
 
-  // const entryCreation = async (e: React.SyntheticEvent) => {
-  //   e.preventDefault();
-  //   const entryToAdd = {
-  //     date: date,
-  //     visibility: visibility,
-  //     weather: weather,
-  //     comment: comment,
-  //     id: entries.length + 1,
-  //   };
-
-  //   createDiaryEntry(entryToAdd).then((data) => {
-  //     setEntries((entries) => [...entries, data]);
-  //   });
-  // };
   const entryCreation = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
