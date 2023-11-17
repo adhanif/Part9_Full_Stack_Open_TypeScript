@@ -10,7 +10,7 @@ const Entries = ({ entries }: { entries: DiaryEntry[] }) => {
           <p>
             visibility: {entry.visibility} <br /> weather: {entry.weather}
           </p>
-          <p></p>
+          <p>"{entry.comment}"</p>
         </div>
       ))}
     </div>
