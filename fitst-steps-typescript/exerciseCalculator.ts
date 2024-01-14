@@ -8,14 +8,26 @@ interface Exercise {
   average: number
 }
 
-const calculateExercises = (values: number[], target: number): Exercise => {
-  const trainingDays = values.filter((ele) => ele !== 0).length
-  const averageHours =
+interface MultiplyValues {
+  values: number[]
+}
+
+const isNotNumber = (arg: any): Boolean => isNaN(Number(arg))
+
+const parseArguments = (args: string[]): MultiplyValues => {
+  const values = args.slice(3).map(Number)
+  if (values.some(isNotNumber)) {
+    throw new Error('Provided values were not correct!')
+  }
+  return { values }
+}
+
+const calculateExercises = (target: number, values: number[]): Exercise => {
+  const trainingDays: number = values.filter((ele) => ele !== 0).length
+  const averageHours: number =
     values.reduce((tot, curr) => {
       return tot + curr
     }, 0) / values.length
-
-  console.log(trainingDays, averageHours)
 
   return {
     periodLength: values.length,
@@ -31,4 +43,14 @@ const calculateExercises = (values: number[], target: number): Exercise => {
   }
 }
 
-console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2))
+try {
+  const args = process.argv
+  const targetValue = Number(args[2])
+
+  const parsedValues = parseArguments(args)
+  const exerciseResult = calculateExercises(targetValue, parsedValues.values)
+
+  console.log(exerciseResult)
+} catch (e) {
+  console.error(e.message)
+}
