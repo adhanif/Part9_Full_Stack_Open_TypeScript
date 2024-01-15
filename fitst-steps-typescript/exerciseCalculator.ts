@@ -22,7 +22,10 @@ const parseArguments = (args: string[]): MultiplyValues => {
   return { values };
 };
 
-const calculateExercises = (target: number, values: number[]): Exercise => {
+export const calculateExercises = (
+  target: number,
+  values: number[],
+): Exercise => {
   const trainingDays: number = values.filter((ele) => ele !== 0).length;
   const averageHours: number =
     values.reduce((tot, curr) => {
