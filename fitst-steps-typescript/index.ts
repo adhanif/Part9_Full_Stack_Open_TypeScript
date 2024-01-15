@@ -19,7 +19,6 @@ app.get('/bmi', (_req, res) => {
     if (isNaN(Number(height)) || isNaN(Number(weight))) {
       res.status(400).json({ error: 'Invalid height or weight values.' })
     }
-
     const bmi = calculateBmi(Number(height), Number(weight))
 
     res.json({ weight: weight, height: height, bmi: bmi })
