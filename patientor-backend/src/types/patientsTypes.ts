@@ -7,4 +7,6 @@ export interface PatientEntry {
   occupation: string;
 }
 
+export interface newPatientEntry extends Omit<PatientEntry, 'id'> {}
+
 export interface NonSensitivePatientEntry extends Omit<PatientEntry, 'ssn'> {}
