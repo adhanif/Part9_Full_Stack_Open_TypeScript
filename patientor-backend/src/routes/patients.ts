@@ -1,5 +1,6 @@
 import express from 'express';
 import patientsService from '../services/patientsService';
+import utils from '../utils/utils';
 
 const patientsRouter = express.Router();
 
@@ -8,8 +9,17 @@ patientsRouter.get('/', (_req, res) => {
 });
 
 patientsRouter.post('/', (_req, res) => {
-  const newPatient = patientsService.addPatient(_req.body);
-  res.json(newPatient);
+  try {
+    const newPatientEntr = utils.toNewPatientEntry(_req.body);
+    const newPatient = patientsService.addPatient(newPatientEntr);
+    res.json(newPatient);
+  } catch (error: unknown) {
+    let errorMessage = 'Something went wrong.';
+    if (error instanceof Error) {
+      errorMessage += ' Error:' + error.message;
+    }
+    res.status(404).send(errorMessage);
+  }
 });
 
 export default patientsRouter;

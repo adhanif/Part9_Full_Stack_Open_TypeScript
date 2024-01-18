@@ -10,3 +10,9 @@ export interface PatientEntry {
 export interface newPatientEntry extends Omit<PatientEntry, 'id'> {}
 
 export interface NonSensitivePatientEntry extends Omit<PatientEntry, 'ssn'> {}
+
+export enum Gender {
+  Male = 'male',
+  Female = 'female',
+  Other = 'other',
+}
