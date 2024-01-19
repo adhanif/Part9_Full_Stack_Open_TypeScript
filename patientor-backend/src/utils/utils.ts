@@ -83,4 +83,4 @@ const toNewPatientEntry = (obj: unknown): newPatientEntry => {
   throw new Error('Incorrect data: some fields are missing');
 };
 
-export default { toNewPatientEntry };
+export default toNewPatientEntry ;
