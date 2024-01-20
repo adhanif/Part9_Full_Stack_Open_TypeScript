@@ -1,5 +1,6 @@
+import React from 'react';
+
 const Total = ({ totalExercises }: { totalExercises: number }): JSX.Element => {
-  console.log(totalExercises);
   return <p>Number of exercises {totalExercises}</p>;
 };
 
