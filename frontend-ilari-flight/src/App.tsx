@@ -1,8 +1,9 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { getAllDiaries, createNewDiary } from './diaryService';
-import { DiaryEntry } from '../src/types';
+import { DiaryEntry, ValidationError } from '../src/types';
 import './App.css';
+import axios from 'axios';
 
 function App() {
   const [diaries, setDiaries] = useState<DiaryEntry[]>([]);
@@ -10,6 +11,7 @@ function App() {
   const [visibility, setVisibilty] = useState('');
   const [weather, setweather] = useState('');
   const [comment, setComment] = useState('');
+  const [error, setError] = useState<ValidationError | null>(null);
 
   useEffect(() => {
     getAllDiaries().then((data) => setDiaries(data));
@@ -25,7 +27,21 @@ function App() {
       comment: comment,
     };
 
-    createNewDiary(diaryToAdd).then((data) => setDiaries(diaries.concat(data)));
+    createNewDiary(diaryToAdd)
+      .then((data) => setDiaries(diaries.concat(data)))
+      .catch((error) => {
+        if (
+          axios.isAxiosError<ValidationError, Record<string, unknown>>(error)
+        ) {
+          const responseData = error.response?.data || null;
+          setError(responseData);
+          setTimeout(() => {
+            setError(null);
+          }, 2000);
+          console.log(error);
+        }
+      });
+
     setDiaries(diaries.concat(diaryToAdd));
     setDate('');
     setVisibilty('');
@@ -36,6 +52,12 @@ function App() {
   return (
     <>
       <div>
+        <h1>Add new Entry</h1>
+        {error ? (
+          <div>
+            <p style={{ color: 'red' }}>{error}</p>
+          </div>
+        ) : null}
         <form onSubmit={diaryCreation}>
           <div>
             date:
