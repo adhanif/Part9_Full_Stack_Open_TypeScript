@@ -13,6 +13,15 @@ function App() {
   const [comment, setComment] = useState('');
   const [error, setError] = useState<ValidationError | null>(null);
 
+  const visibilityInputs: string[] = ['great', 'good', 'ok', 'poor'];
+  const weatherInputs: string[] = [
+    'sunny',
+    'rainy',
+    'cloudy',
+    'stormy',
+    'windy',
+  ];
+
   useEffect(() => {
     getAllDiaries().then((data) => setDiaries(data));
   }, []);
@@ -55,31 +64,50 @@ function App() {
         <h1>Add new Entry</h1>
         {error ? (
           <div>
-            <p style={{ color: 'red' }}>{error}</p>
+            <p style={{ color: 'red' }}>{error.message}</p>
           </div>
         ) : null}
         <form onSubmit={diaryCreation}>
           <div>
             date:
             <input
+              type='date'
               value={date}
               onChange={(event) => setDate(event.target.value)}
             />
           </div>
-          <div>
-            visibilty:
-            <input
-              value={visibility}
-              onChange={(event) => setVisibilty(event.target.value)}
-            />
+          <div style={{ display: 'flex', flexDirection: 'row' }}>
+            {visibilityInputs.map((ele, i) => {
+              return (
+                <div key={i}>
+                  {ele}
+                  <input
+                    type='radio'
+                    value={ele}
+                    checked={visibility === ele}
+                    onChange={(event) => setVisibilty(event.target.value)}
+                  />
+                </div>
+              );
+            })}
           </div>
-          <div>
-            weather:
-            <input
-              value={weather}
-              onChange={(event) => setweather(event.target.value)}
-            />
+
+          <div style={{ display: 'flex', flexDirection: 'row' }}>
+            {weatherInputs.map((ele, i) => {
+              return (
+                <div key={i}>
+                  {ele}
+                  <input
+                    type='radio'
+                    value={ele}
+                    checked={weather === ele}
+                    onChange={(event) => setweather(event.target.value)}
+                  />
+                </div>
+              );
+            })}
           </div>
+
           <div>
             comment:
             <input
