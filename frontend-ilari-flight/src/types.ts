@@ -3,7 +3,10 @@ export interface DiaryEntry {
   date: string;
   weather: string;
   visibility: string;
-  comment: string;
+  comment?: string;
 }
 
-
+export interface ValidationError {
+  message: string;
+  errors: Record<string, string[]>;
+}
